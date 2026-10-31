@@ -13,18 +13,18 @@
     var W = host.clientWidth, H = host.clientHeight;
     var renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2)); renderer.setSize(W, H);
-    renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+    renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.25;
     host.appendChild(renderer.domElement);
     var scene = new THREE.Scene();
-    var cam = new THREE.PerspectiveCamera(32, W/H, 0.1, 200); cam.position.set(0, 7, 34);
+    var cam = new THREE.PerspectiveCamera(32, W/H, 0.1, 200); cam.position.set(0, 10, 92);
     // lights: cool key, warm rim, soft fill — reads as brushed metal
-    scene.add(new THREE.HemisphereLight(0xdfe9ff, 0x1b2954, 0.9));
-    var key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(10, 14, 12); scene.add(key);
-    var rim = new THREE.DirectionalLight(0xfdb913, 0.9); rim.position.set(-14, 6, -10); scene.add(rim);
-    var fill = new THREE.DirectionalLight(0x1a8fe2, 0.7); fill.position.set(-6, -8, 10); scene.add(fill);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x3a4b89, 1.6));
+    var key = new THREE.DirectionalLight(0xffffff, 2.6); key.position.set(18, 24, 30); scene.add(key);
+    var rim = new THREE.DirectionalLight(0xfdb913, 0.35); rim.position.set(-30, 10, -20); scene.add(rim);
+    var fill = new THREE.DirectionalLight(0x8fc4f3, 0.9); fill.position.set(-20, -10, 25); var fill2 = new THREE.DirectionalLight(0xffffff, 0.8); fill2.position.set(0, -30, 10); scene.add(fill2); scene.add(fill);
 
-    var alu = new THREE.MeshStandardMaterial({color:0xd9dee8, metalness:0.95, roughness:0.32});
-    var steel = new THREE.MeshStandardMaterial({color:0x7d8694, metalness:1.0, roughness:0.42});
+    var alu = new THREE.MeshStandardMaterial({color:0xe6eaf0, metalness:0.8, roughness:0.28});
+    var steel = new THREE.MeshStandardMaterial({color:0x8a93a1, metalness:0.9, roughness:0.4});
     var d = 3.0, r = d/2;            // wire diameter mm, drawn 1:1 in scene units
     var group = new THREE.Group(); scene.add(group);
 
@@ -49,7 +49,7 @@
       {n:24, R:4*d,    dir: 1, L: 215, z1: -8, mat:alu}      // outer layer right-hand (lay ratio 12.66 × Ø27 ≈ 342 mm; shortened for the view)
     ];
     layers.forEach(function(l){ for(var i=0;i<l.n;i++){ group.add(wire(l.R, l.L, 2*Math.PI*i/l.n, l.dir, zStart, l.z1, l.mat)); } });
-    group.rotation.y = -0.55; group.rotation.x = 0.18; group.position.set(1.5, -0.5, 0);
+    group.rotation.y = -0.95; group.rotation.x = 0.12; group.position.set(4, 2, 0);
 
     // interaction: drag to spin, auto-rotate otherwise
     var dragging=false, px=0, py=0, vx=0.0035, vy=0, auto=!reduce;
