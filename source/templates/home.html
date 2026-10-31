@@ -1,86 +1,130 @@
 {% extends "base.html" %}
+{% block head %}<link rel="stylesheet" href="{{ root }}/assets/css/landing.css?v={{ build }}">
+<link rel="preload" as="image" href="{{ photos.hero.src }}" fetchpriority="high">{% endblock %}
 {% block body %}
-<section class="hero">
-  <div class="pattern" aria-hidden="true"></div>
-  <div class="wrap">
-    <div>
-      <h1>{{ t('hero_title') }}</h1>
-      <p class="lead">{{ t('hero_sub') }}</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="{{ u('/tools/selector/') }}">{{ t('hero_cta1') }}</a>
-        <a class="btn btn-light" href="{{ u('/contact/') }}">{{ t('hero_cta2') }}</a>
+<section class="lp-hero">
+  <img class="lp-hero-img" src="{{ photos.hero.src }}" alt="" width="2400" height="1400" fetchpriority="high">
+  <div class="lp-hero-shade"></div>
+  <div class="wrap lp-hero-grid">
+    <div class="lp-hero-copy">
+      <p class="lp-kicker">{{ t('lp_kicker') }}</p>
+      <h1>{{ t('lp_h1_a') }}<br><span>{{ t('lp_h1_b') }}</span></h1>
+      <p class="lp-lead">{{ t('lp_lead') }}</p>
+      <div class="lp-actions">
+        <a class="btn btn-primary btn-lg" href="{{ u('/products/') }}">{{ t('lp_cta_range') }}</a>
+        <a class="btn btn-glass btn-lg" href="{{ u('/contact/') }}">{{ t('hero_cta2') }}</a>
+      </div>
+      <ul class="lp-ticks">
+        <li><b class="num">131</b> {{ t('lp_tick_sizes') }}</li>
+        <li><b class="num">16–1000</b> {{ t('lp_tick_area') }}</li>
+        <li><b class="num">17/17</b> {{ t('lp_tick_tests') }}</li>
+        <li><b class="num">1975</b> {{ t('lp_tick_since') }}</li>
+      </ul>
+    </div>
+    <div class="lp-model">
+      <div id="conductor3d" class="lp-3d" aria-label="{{ t('lp_3d_alt') }}" role="img">
+        <img class="lp-3d-fallback" src="{{ root }}/assets/img/acsr380_section.png" alt="" width="1129" height="1130">
+      </div>
+      <div class="lp-model-tag">
+        <div class="lp-model-name num">ACSR 380/50 <span>ATC-ACS-012</span></div>
+        <div class="lp-model-sub">{{ t('lp_3d_sub') }}</div>
+        <div class="lp-model-hint">{{ t('lp_3d_hint') }}</div>
       </div>
     </div>
-    <div class="badge">
-      <div class="big num">17<small>/17</small></div>
-      <div class="lbl">{{ t('badge_tests') }}</div>
-      <div class="sub">{{ t('badge_report') }}</div>
-      <a href="{{ u('/quality/') }}#type-test">{{ t('proof_cta') }}</a>
-    </div>
   </div>
-  <div class="strip-wrap"><img class="strip" src="{{ root }}/assets/img/conductor_hero.png" alt="" width="3510" height="295"></div>
+  <p class="lp-credit"><a href="{{ photos.hero.page }}" rel="noopener">{{ t('lp_photo') }}: {{ photos.hero.by }}, Unsplash</a></p>
 </section>
 
-<section class="section">
+<section class="lp-strip" aria-hidden="true"><img src="{{ root }}/assets/img/conductor_hero.png" alt="" width="3510" height="295" loading="lazy"></section>
+
+<section class="section lp-families">
   <div class="wrap">
-    <div class="section-head"><h2>{{ t('families_title') }}</h2><p class="lead">{{ t('families_sub') }}</p></div>
-    <div class="grid-3">
-      {% for fam in ['ACSR','AAAC','AAC'] %}{% set F=families[fam] %}
-      <article class="family-card {{ fam|lower }}">
-        {{ sections[fam]|safe }}
-        <h3>{{ F.name }}</h3><div class="full">{{ F.full }}</div>
-        <p>{{ t(fam|lower ~ '_short') }}</p>
-        <div class="meta"><span>{{ t('range') }} <b class="num">{{ F.range }}</b></span><span><b class="num">{{ counts[fam] }}</b> {{ t('sizes') }}</span></div>
-        <a class="btn btn-ghost btn-sm" href="{{ u('/products/' ~ fam|lower ~ '/') }}">{{ t('view_range') }}</a>
-      </article>
+    <div class="lp-head"><h2>{{ t('lp_fam_title') }}</h2><p class="lead">{{ t('lp_fam_sub') }}</p></div>
+    <div class="lp-cards">
+      {% for fam, ph in [('ACSR', photos.acsr), ('AAAC', photos.aaac), ('AAC', photos.aac)] %}{% set F = families[fam] %}
+      <a class="lp-card" href="{{ u('/products/' ~ fam|lower ~ '/') }}">
+        <img src="{{ ph.src }}" alt="" width="1200" height="1500" loading="lazy">
+        <div class="lp-card-body">
+          <div class="lp-card-top"><span class="lp-card-fam">{{ F.name }}</span><span class="lp-card-n num">{{ counts[fam] }} {{ t('sizes') }}</span></div>
+          <h3>{{ t('lp_' ~ fam|lower ~ '_h') }}</h3>
+          <p>{{ t('lp_' ~ fam|lower ~ '_p') }}</p>
+          <span class="lp-card-link">{{ t('view_range') }} <span class="lp-arrow">→</span></span>
+        </div>
+        <span class="lp-card-credit">{{ ph.by }} · Unsplash</span>
+      </a>
       {% endfor %}
     </div>
   </div>
 </section>
 
-<section class="section navy" id="proof">
-  <div class="wrap proof">
+<section class="section lp-inside">
+  <div class="wrap lp-inside-grid">
+    <div class="lp-inside-art">{{ exploded_svg|safe }}</div>
     <div>
-      <h2>{{ t('proof_title') }}</h2>
-      <p style="color:#C9D6EC;max-width:60ch">{{ t('proof_body') }}</p>
+      <h2>{{ t('lp_inside_title') }}</h2>
+      <p class="lead">{{ t('lp_inside_sub') }}</p>
+      <ol class="lp-layers">
+        <li><b>7 × 3.00 mm</b> {{ t('lp_layer_steel') }}</li>
+        <li><b>12 + 18 + 24 × 3.00 mm</b> {{ t('lp_layer_alu') }}</li>
+        <li><b>{{ t('lp_layer_lay_b') }}</b> {{ t('lp_layer_lay') }}</li>
+        <li><b>269 g/m²</b> {{ t('lp_layer_zinc') }}</li>
+      </ol>
+      <a class="btn btn-ghost" href="{{ u('/products/atc-acs-012/') }}">{{ t('lp_inside_cta') }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="lp-proof">
+  <div class="wrap">
+    <div class="lp-proof-head">
+      <p class="lp-kicker light">{{ t('lp_proof_kicker') }}</p>
+      <h2>{{ t('lp_proof_title') }}</h2>
+      <p>{{ t('lp_proof_sub') }}</p>
+    </div>
+    <div class="lp-proof-grid">
+      <div class="lp-stat"><div class="lp-stat-v num">17<small>/17</small></div><div class="lp-stat-l">{{ t('badge_tests') }}</div></div>
+      <div class="lp-stat"><div class="lp-stat-v num">115.23<small> kN</small></div><div class="lp-stat-l">{{ t('k_tensile') }}</div></div>
+      <div class="lp-stat"><div class="lp-stat-v num">61.9<small> %</small></div><div class="lp-stat-l">{{ t('lp_iacs') }}</div></div>
+      <div class="lp-stat"><div class="lp-stat-v num">54<small>/54</small></div><div class="lp-stat-l">{{ t('lp_wires') }}</div></div>
+    </div>
+    <div class="lp-proof-foot">
+      <span>{{ t('badge_report') }} · {{ t('tt_issued') }} 29 Sep 2026</span>
       <a class="btn btn-light" href="{{ u('/quality/') }}#type-test">{{ t('proof_cta') }}</a>
     </div>
-    <div class="proof-nums">
-      <div class="row"><div class="v num">0.027869</div><div class="l">{{ t('k_resistivity') }}</div></div>
-      <div class="row"><div class="v num">115.23</div><div class="l">{{ t('k_tensile') }}</div></div>
-      <div class="row"><div class="v num">269.3</div><div class="l">{{ t('k_zinc') }}</div></div>
-    </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap grid-2">
-    <div class="photo slant"><img src="{{ root }}/assets/img/tower.jpg" alt="" width="1200" height="1600" loading="lazy" style="max-height:520px"></div>
+<section class="section lp-group">
+  <div class="wrap lp-group-grid">
+    <div class="lp-group-photo"><img src="{{ root }}/assets/img/tower.jpg" alt="" width="1200" height="1600" loading="lazy"><span class="lp-card-credit">Al Tawakol Group</span></div>
     <div>
-      <h2>{{ t('group_title') }}</h2>
-      <p>{{ t('group_body') }}</p>
-      <div class="kpis" style="margin-top:28px">
-        <div class="kpi"><div class="v num">45+</div><div class="l">{{ t('g_years') }}</div></div>
-        <div class="kpi"><div class="v num">10+</div><div class="l">{{ t('g_factories') }}</div></div>
-        <div class="kpi"><div class="v num">2,400+</div><div class="l">{{ t('g_employees') }}</div></div>
-        <div class="kpi"><div class="v num">300+</div><div class="l">{{ t('g_engineers') }}</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section tint">
-  <div class="wrap grid-2">
-    <div>
+      <p class="lp-kicker">{{ t('lp_group_kicker') }}</p>
       <h2>{{ t('line_title') }}</h2>
-      <p class="lead">{{ t('line_body') }}</p>
+      <p class="lead">{{ t('lp_group_p') }}</p>
+      <div class="lp-group-stats">
+        <div><b class="num">45+</b><span>{{ t('g_years') }}</span></div>
+        <div><b class="num">10+</b><span>{{ t('g_factories') }}</span></div>
+        <div><b class="num">2,400+</b><span>{{ t('g_employees') }}</span></div>
+        <div><b class="num">300+</b><span>{{ t('g_engineers') }}</span></div>
+      </div>
       <a class="btn btn-primary" href="{{ u('/contact/') }}?code=Line%20package">{{ t('line_cta') }}</a>
-    </div>
-    <div>
-      <h3>{{ t('order_title') }}</h3>
-      <p>{{ t('order_body') }}</p>
-      <div class="callout small">{{ t('order_example') }}</div>
+      <a class="btn btn-ghost" href="{{ u('/company/') }}">{{ t('nav_company') }}</a>
     </div>
   </div>
 </section>
+
+<section class="lp-cta">
+  <img src="{{ photos.cta.src }}" alt="" width="2400" height="1200" loading="lazy">
+  <div class="lp-cta-shade"></div>
+  <div class="wrap lp-cta-inner">
+    <h2>{{ t('lp_cta_title') }}</h2>
+    <p>{{ t('lp_cta_sub') }}</p>
+    <div class="lp-actions">
+      <a class="btn btn-primary btn-lg" href="{{ u('/tools/selector/') }}">{{ t('hero_cta1') }}</a>
+      <a class="btn btn-glass btn-lg" href="{{ u('/documents/') }}">{{ t('nav_documents') }}</a>
+    </div>
+    <p class="lp-credit"><a href="{{ photos.cta.page }}" rel="noopener">{{ t('lp_photo') }}: {{ photos.cta.by }}, Unsplash</a></p>
+  </div>
+</section>
+<script src="{{ root }}/assets/js/conductor3d.js?v={{ build }}" defer></script>
 {% endblock %}

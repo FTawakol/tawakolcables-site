@@ -77,6 +77,34 @@ def section_svg(r, size=220):
         parts.append(f'<circle cx="{c+x*sc:.1f}" cy="{c+y*sc:.1f}" r="{rad*sc:.1f}" fill="{fill}" stroke="#24356E" stroke-width="1"/>')
     parts.append('</svg>'); return ''.join(parts)
 
+def exploded_svg():
+    """ACSR 380/50 shown as four concentric rings pulled apart: steel core, then 12, 18, 24 aluminium."""
+    d=3.0; rings=[(7,'st'),(12,'al'),(18,'al'),(24,'al')]; out=['<svg viewBox="0 0 560 560" role="img" aria-label="ACSR 380/50 layers: steel core, 12, 18 and 24 aluminium wires">']
+    cx,cy=280,280; sc=7.2
+    out.append(f'<circle cx="{cx}" cy="{cy}" r="{13.5*sc+6}" fill="none" stroke="#B9C7E2" stroke-dasharray="5 5"/>')
+    labels=[('Steel core · 7 × 3.00 mm',0),('12 × 3.00 mm Al',2),('18 × 3.00 mm Al',3),('24 × 3.00 mm Al',4)]
+    for li,(n,kind) in enumerate(rings):
+        if li==0:
+            pts=[(0,0)]+[(d*math.cos(i*math.pi/3), d*math.sin(i*math.pi/3)) for i in range(6)]
+        else:
+            R=(li+1)*d; pts=[(R*math.cos(2*math.pi*i/n+math.pi/n), R*math.sin(2*math.pi*i/n+math.pi/n)) for i in range(n)]
+        fill='#6B7585' if kind=='st' else '#E9EEF6'
+        for x,y in pts:
+            out.append(f'<circle cx="{cx+x*sc:.1f}" cy="{cy+y*sc:.1f}" r="{d/2*sc-0.6:.1f}" fill="{fill}" stroke="#24356E" stroke-width="1.2"/>')
+    # callouts
+    def anchor(R, ang): return (cx+R*sc*math.cos(ang), cy+R*sc*math.sin(ang))
+    calls=[(anchor(d, -math.pi/2), 'Steel core · 7 × 3.00 mm ST1A', 'middle', cx, 52),
+           (anchor(2*d, -math.pi/4), '12 × 3.00 mm AL1', 'start', cx+150, cy-150),
+           (anchor(3*d, math.pi*0.8), '18 × 3.00 mm AL1', 'end', cx-150, cy+110),
+           (anchor(4*d, math.pi/4), '24 × 3.00 mm AL1 · outer, right-hand lay', 'start', cx+120, cy+190)]
+    for (x,y),txt,anc,tx,ty in calls:
+        out.append(f'<line x1="{x:.0f}" y1="{y:.0f}" x2="{tx}" y2="{ty-5}" stroke="#1A8FE2" stroke-width="1.2"/><circle cx="{x:.0f}" cy="{y:.0f}" r="3.5" fill="#1A8FE2"/>')
+        out.append(f'<text x="{tx}" y="{ty}" text-anchor="{anc}" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="600" fill="#24356E">{txt}</text>')
+    out.append(f'<text x="{cx}" y="{cy+13.5*sc+34}" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#5B6478">Ø 27.0 mm · 1443 kg/km · RTS 121.3 kN · 820 A</text>')
+    out.append('</svg>'); return ''.join(out)
+
+PHOTOS = json.load(open(os.path.join(HERE,'photos.json'))) if os.path.exists(os.path.join(HERE,'photos.json')) else {}
+
 # ---------- datasheet PDF ----------
 def make_datasheet(r, path, lang_rows):
     from reportlab.lib.pagesizes import A4
@@ -166,7 +194,7 @@ def main():
             write(path + ('index.html' if path.endswith('/') else ''), html)
             if lang=='en': urls.append(path)
         home = pre + '/'
-        render('home.html', home, t('tagline'), 'home')
+        render('home.html', home, t('tagline'), 'home', photos=PHOTOS, exploded_svg=exploded_svg())
         render('products.html', pre + '/products/', t('products_title'), 'products')
         for fam, frows in by_fam.items():
             F = fams[fam]
