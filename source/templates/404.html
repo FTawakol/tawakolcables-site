@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="section"><div class="wrap" style="max-width:640px"><h1>404</h1><p class="lead">{{ 'الصفحة غير موجودة.' if lang=='ar' else 'That page does not exist.' }}</p><p><a class="btn btn-primary" href="{{ u('/products/') }}">{{ t('nav_products') }}</a> <a class="btn btn-ghost" href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a></p></div></section>
+{% endblock %}

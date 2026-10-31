@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ 'rtl' if lang=='ar' else 'ltr' }}" data-root="{{ root }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} | {{ t('site_name') }}</title>
+<meta name="description" content="{{ desc or t('meta_desc') }}">
+<link rel="canonical" href="{{ site_url }}{{ path }}">
+<link rel="alternate" hreflang="en" href="{{ site_url }}{{ en_path }}">
+<link rel="alternate" hreflang="ar" href="{{ site_url }}{{ ar_path }}">
+<link rel="icon" href="{{ root }}/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="{{ title }} | {{ t('site_name') }}">
+<meta property="og:description" content="{{ desc or t('meta_desc') }}">
+<meta property="og:image" content="{{ site_url }}/assets/img/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}/assets/css/site.css?v={{ build }}">
+{% block head %}{% endblock %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Altawakol for Cables","url":"{{ site_url }}","logo":"{{ site_url }}/assets/img/logo_gold.png","parentOrganization":{"@type":"Organization","name":"Al Tawakol Group"},"address":{"@type":"PostalAddress","streetAddress":"01 Mall, Mohamed Naguib Axis, 1st Settlement","addressLocality":"New Cairo","addressCountry":"EG"},"telephone":"19796"}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="{{ u('/') }}"><img src="{{ root }}/assets/img/logo_gold.png" alt="{{ t('site_name') }}" width="220" height="40"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="{{ u('/products/') }}" {% if section=='products' %}aria-current="page"{% endif %}>{{ t('nav_products') }}</a>
+      <a href="{{ u('/tools/selector/') }}" {% if section=='selector' %}aria-current="page"{% endif %}>{{ t('nav_selector') }}</a>
+      <a href="{{ u('/documents/') }}" {% if section=='documents' %}aria-current="page"{% endif %}>{{ t('nav_documents') }}</a>
+      <a href="{{ u('/quality/') }}" {% if section=='quality' %}aria-current="page"{% endif %}>{{ t('nav_quality') }}</a>
+      <a href="{{ u('/company/') }}" {% if section=='company' %}aria-current="page"{% endif %}>{{ t('nav_company') }}</a>
+      <a href="{{ u('/news/') }}" {% if section=='news' %}aria-current="page"{% endif %}>{{ t('nav_news') }}</a>
+      <a href="{{ u('/contact/') }}" class="cta">{{ t('nav_rfq') }}</a>
+      <a href="{{ other_lang_url }}" class="lang" lang="{{ t('lang_code_other') }}" hreflang="{{ t('lang_code_other') }}">{{ t('lang_switch') }}</a>
+    </nav>
+  </div>
+</header>
+{% block body %}{% endblock %}
+<footer>
+  <div class="wrap">
+    <div>
+      <img src="{{ root }}/assets/img/logo_gold.png" alt="">
+      <p>{{ t('legal_name') }}<br>{{ t('group_line') }}</p>
+      <p class="small">{{ t('footer_std') }}</p>
+    </div>
+    <div>
+      <h4>{{ t('footer_links') }}</h4>
+      <ul>
+        <li><a href="{{ u('/products/acsr/') }}">ACSR</a></li><li><a href="{{ u('/products/aaac/') }}">AAAC</a></li><li><a href="{{ u('/products/aac/') }}">AAC</a></li>
+        <li><a href="{{ u('/tools/selector/') }}">{{ t('nav_selector') }}</a></li><li><a href="{{ u('/tools/compare/') }}">{{ t('nav_compare') }}</a></li>
+        <li><a href="{{ u('/documents/') }}">{{ t('nav_documents') }}</a></li><li><a href="{{ u('/quality/') }}">{{ t('nav_quality') }}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>{{ t('footer_contact') }}</h4>
+      <ul>
+        <li>{{ t('address') }}</li>
+        <li>{{ t('hotline') }}: <a href="tel:19796" class="num">19796</a></li>
+        <li><a href="{{ u('/contact/') }}">{{ t('nav_rfq') }}</a></li>
+      </ul>
+    </div>
+    <div class="legal"><span>{{ t('footer_legal') }}</span><span><a href="{{ other_lang_url }}">{{ t('lang_switch') }}</a></span></div>
+  </div>
+</footer>
+<script>window.ATC_T={{ js_strings|safe }};</script>
+<script src="{{ root }}/assets/js/site.js?v={{ build }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /rfq-log.csv
+Sitemap: https://tawakolcables.com/sitemap.xml

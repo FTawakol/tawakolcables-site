@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_selector') }}</div>
+  <h1>{{ t('selector_title') }}</h1><p class="lead">{{ t('selector_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap">
+  <form id="selector" class="form" style="max-width:860px">
+    <label>{{ t('sel_family') }}<select name="family"><option value="any">{{ t('sel_any') }}</option><option>ACSR</option><option>AAAC</option><option>AAC</option></select></label>
+    <label>{{ t('sel_env') }}<select name="env"><option value="normal">{{ t('sel_env_normal') }}</option><option value="coastal">{{ t('sel_env_coastal') }}</option><option value="span">{{ t('sel_env_span') }}</option></select></label>
+    <label>{{ t('sel_current') }}<input name="current" type="number" inputmode="decimal" min="0" placeholder="620"></label>
+    <label>{{ t('sel_area') }}<input name="area" type="number" inputmode="decimal" min="0" placeholder="240"></label>
+    <label>{{ t('sel_series') }}<select name="series"><option value="all">{{ t('all_series') }}</option><option value="Metric">{{ t('metric_series') }}</option><option value="BS EN 50182">{{ t('bs_series') }}</option></select></label>
+    <div style="align-self:end"><button class="btn btn-primary" type="submit">{{ t('sel_find') }}</button></div>
+  </form>
+  <h2 style="margin-top:32px">{{ t('sel_results') }}</h2>
+  <div id="sel-results" class="sel-results"><p class="muted">—</p></div>
+  <p class="note">{{ t('rating_note') }}</p>
+</div></section>
+{% endblock %}

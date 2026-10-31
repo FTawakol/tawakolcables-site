@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_contact') }}</div>
+  <h1>{{ t('contact_title') }}</h1><p class="lead">{{ t('contact_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap contact-grid">
+  <div>
+    <h2>{{ t('nav_contact') }}</h2>
+    <dl><dt>{{ t('legal_name') }}</dt><dd>{{ t('group_line') }}</dd>
+    <dt>{{ t('head_office') }}</dt><dd>{{ t('address') }}</dd>
+    <dt>{{ t('hotline') }}</dt><dd><a href="tel:19796" class="num">19796</a></dd>
+    <dt>{{ t('email') }}</dt><dd><a href="mailto:{{ mail }}">{{ mail }}</a></dd></dl>
+    <div class="callout" style="margin-top:28px"><b>{{ t('order_title') }}.</b> {{ t('order_body') }}</div>
+  </div>
+  <div>
+    <h2>{{ t('rfq_title') }}</h2>
+    <form id="rfq" class="form" data-mail="{{ mail }}" data-endpoint="{{ form_endpoint }}">
+      <label>{{ t('f_name') }}<input name="name" required autocomplete="name"></label>
+      <label>{{ t('f_company') }}<input name="company" autocomplete="organization"></label>
+      <label>{{ t('f_email') }}<input name="email" type="email" required autocomplete="email"></label>
+      <label>{{ t('f_phone') }}<input name="phone" type="tel" autocomplete="tel"></label>
+      <label class="full">{{ t('f_code') }}<input name="code" required placeholder="{{ t('f_code_ph') }}" list="code-list"><datalist id="code-list">{% for c in codes %}<option value="{{ c }}">{% endfor %}</datalist></label>
+      <label>{{ t('f_qty') }}<span class="qty"><input name="qty" type="number" inputmode="decimal" min="0"><select name="unit"><option value="km">{{ t('f_qty_unit_km') }}</option><option value="t">{{ t('f_qty_unit_t') }}</option></select></span></label>
+      <label>{{ t('f_drum') }}<input name="drum" type="number" inputmode="numeric" min="0" placeholder="2000"></label>
+      <label>{{ t('f_city') }}<input name="city"></label>
+      <label>{{ t('f_tender') }}<input name="tender"></label>
+      <label class="full">{{ t('f_notes') }}<textarea name="notes"></textarea></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <div class="full"><button class="btn btn-primary" type="submit">{{ t('f_submit') }}</button> <span class="small muted">{{ t('f_privacy') }}</span></div>
+    </form>
+    <div class="msg ok-box" role="status"></div><div class="msg err-box" role="alert"></div>
+  </div>
+</div></section>
+{% endblock %}

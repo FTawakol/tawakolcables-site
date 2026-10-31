@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span><a href="{{ u('/products/') }}">{{ t('nav_products') }}</a><span>/</span>{{ F.name }}</div>
+  <h1>{{ F.name }} <span class="muted" style="font-weight:500;font-size:.6em">{{ F.full }}</span></h1>
+  <p class="lead">{{ F.desc }}</p>
+</div></div>
+<section class="section" style="padding-top:40px">
+  <div class="wrap">
+    <div class="grid-3" style="align-items:start">
+      <div><h3>{{ t('applications') }}</h3><ul class="list-2" style="grid-template-columns:1fr">{% for a in F.apps %}<li>{{ a }}</li>{% endfor %}</ul></div>
+      <div><h3>{{ t('construction') }}</h3><ul class="list-2" style="grid-template-columns:1fr">{% for a in F.cons %}<li>{{ a }}</li>{% endfor %}</ul></div>
+      <div><h3>{{ t('standards') }}</h3><div>{% for s in F.stds %}<span class="chip">{{ s }}</span>{% endfor %}</div>
+        <div class="xsec" style="margin-top:16px;padding:16px">{{ section_svg|safe }}<div class="cap">{{ section_cap }}</div></div></div>
+    </div>
+
+    <h2 id="sizes" style="margin-top:56px">{{ t('all_series') }} <span class="muted" style="font-size:.6em;font-weight:500">{{ rows|length }} {{ t('sizes') }}</span></h2>
+    <form class="filters" onsubmit="return false">
+      <label>{{ t('filter_series') }}<select name="series"><option value="all">{{ t('all_series') }}</option><option value="Metric">{{ t('metric_series') }}</option><option value="BS EN 50182">{{ t('bs_series') }}</option></select></label>
+      <label>{{ t('filter_area') }} · {{ t('filter_min') }}<input name="min" type="number" inputmode="decimal" min="0"></label>
+      <label>{{ t('filter_area') }} · {{ t('filter_max') }}<input name="max" type="number" inputmode="decimal" min="0"></label>
+      <label>{{ t('filter_search') }}<input name="q" type="search"></label>
+      <button type="button" class="btn btn-ghost btn-sm reset">{{ t('filter_reset') }}</button>
+      <span class="count"></span>
+    </form>
+    <div class="tablewrap">
+    <table class="data" data-filter>
+      <thead><tr>
+        <th>{{ t('th_compare') }}</th><th>{{ t('th_code') }}</th>
+        {% if fam=='ACSR' %}<th>{{ t('th_designation') }}<span class="u">Al / St</span></th><th>{{ t('th_name') }}</th>
+        <th class="n">{{ t('th_area_al') }}<span class="u">{{ t('u_mm2') }}</span></th><th class="n">{{ t('th_area_st') }}<span class="u">{{ t('u_mm2') }}</span></th><th class="n">{{ t('th_area_total') }}<span class="u">{{ t('u_mm2') }}</span></th>
+        <th class="n">{{ t('th_stranding_al') }}<span class="u">{{ t('u_nomm') }}</span></th><th class="n">{{ t('th_stranding_st') }}<span class="u">{{ t('u_nomm') }}</span></th>
+        {% else %}<th>{{ t('th_designation') }}<span class="u">{{ t('u_mm2') }}</span></th><th>{{ t('th_name') }}</th>
+        <th class="n">{{ t('th_area_al') }}<span class="u">{{ t('u_mm2') }}</span></th><th class="n">{{ t('th_stranding') }}<span class="u">{{ t('u_nomm') }}</span></th>{% endif %}
+        <th class="n">{{ t('th_diameter') }}<span class="u">{{ t('u_mm') }}</span></th><th class="n">{{ t('th_mass') }}<span class="u">{{ t('u_kgkm') }}</span></th>
+        <th class="n">{{ t('th_resistance') }}<span class="u">{{ t('u_ohmkm') }}</span></th><th class="n">{{ t('th_rts') }}<span class="u">{{ t('u_kn') }}</span></th><th class="n">{{ t('th_current') }}<span class="u">{{ t('u_a') }}</span></th>
+      </tr></thead>
+      <tbody>
+      {% for r in rows %}
+      <tr data-series="{{ r.series }}" data-area="{{ r.area_al_mm2 }}">
+        <td><input type="checkbox" data-cmp="{{ r.product_code }}" aria-label="{{ t('th_compare') }} {{ r.product_code }}"></td>
+        <td class="code"><a href="{{ u('/products/' ~ r.product_code|lower ~ '/') }}" class="num">{{ r.product_code }}</a></td>
+        <td class="num">{{ r.designation }}</td><td>{{ r.code_name }}</td>
+        <td class="n">{{ r.area_al_mm2 }}</td>
+        {% if fam=='ACSR' %}<td class="n">{{ r.area_steel_mm2 }}</td><td class="n">{{ r.total_area_mm2 }}</td><td class="n num">{{ r.stranding_al }}</td><td class="n num">{{ r.stranding_steel }}</td>
+        {% else %}<td class="n num">{{ r.stranding_al }}</td>{% endif %}
+        <td class="n">{{ r.overall_diameter_mm }}</td><td class="n">{{ r.mass_kg_km }}</td><td class="n">{{ r.dc_resistance_20C_ohm_km }}</td><td class="n">{{ r.rts_kN }}</td><td class="n cur">{{ r.current_rating_A }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    <p class="note">{{ t('compare_hint') }}</p>
+    <div class="table-actions">
+      <a class="btn btn-ghost btn-sm" href="{{ root }}/data/altawakol-conductors.csv" download>{{ t('download_csv') }}</a>
+      <a class="btn btn-ghost btn-sm" href="{{ root }}/assets/docs/Altawakol-Overhead-Conductors-Catalogue.pdf">{{ t('download_catalogue') }}</a>
+      <a class="btn btn-primary btn-sm" href="{{ u('/contact/') }}?code={{ F.name }}">{{ t('hero_cta2') }}</a>
+    </div>
+    <p class="note">{{ t('table_note') }}</p>
+  </div>
+</section>
+<div class="compare-bar"><div class="wrap"><strong>{{ t('nav_compare') }}:</strong> <span class="list num"></span> <a class="btn btn-light btn-sm go" href="{{ u('/tools/compare/') }}">{{ t('compare_selected') }}</a> <a href="#" class="clear" style="color:#fff">{{ t('filter_reset') }}</a></div></div>
+{% endblock %}

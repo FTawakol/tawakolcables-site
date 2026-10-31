@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <h1>{{ t('hero_title') }}</h1>
+      <p class="lead">{{ t('hero_sub') }}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{{ u('/tools/selector/') }}">{{ t('hero_cta1') }}</a>
+        <a class="btn btn-light" href="{{ u('/contact/') }}">{{ t('hero_cta2') }}</a>
+      </div>
+    </div>
+    <div class="badge">
+      <div class="big num">17<small>/17</small></div>
+      <div class="lbl">{{ t('badge_tests') }}</div>
+      <div class="sub">{{ t('badge_report') }}</div>
+      <a href="{{ u('/quality/') }}#type-test">{{ t('proof_cta') }}</a>
+    </div>
+  </div>
+  <div class="strip-wrap"><img class="strip" src="{{ root }}/assets/img/conductor_hero.png" alt="" width="3510" height="295"></div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>{{ t('families_title') }}</h2><p class="lead">{{ t('families_sub') }}</p></div>
+    <div class="grid-3">
+      {% for fam in ['ACSR','AAAC','AAC'] %}{% set F=families[fam] %}
+      <article class="family-card {{ fam|lower }}">
+        {{ sections[fam]|safe }}
+        <h3>{{ F.name }}</h3><div class="full">{{ F.full }}</div>
+        <p>{{ t(fam|lower ~ '_short') }}</p>
+        <div class="meta"><span>{{ t('range') }} <b class="num">{{ F.range }}</b></span><span><b class="num">{{ counts[fam] }}</b> {{ t('sizes') }}</span></div>
+        <a class="btn btn-ghost btn-sm" href="{{ u('/products/' ~ fam|lower ~ '/') }}">{{ t('view_range') }}</a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section navy" id="proof">
+  <div class="wrap proof">
+    <div>
+      <h2>{{ t('proof_title') }}</h2>
+      <p style="color:#C9D6EC;max-width:60ch">{{ t('proof_body') }}</p>
+      <a class="btn btn-light" href="{{ u('/quality/') }}#type-test">{{ t('proof_cta') }}</a>
+    </div>
+    <div class="proof-nums">
+      <div class="row"><div class="v num">0.027869</div><div class="l">{{ t('k_resistivity') }}</div></div>
+      <div class="row"><div class="v num">115.23</div><div class="l">{{ t('k_tensile') }}</div></div>
+      <div class="row"><div class="v num">269.3</div><div class="l">{{ t('k_zinc') }}</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap grid-2">
+    <div class="photo slant"><img src="{{ root }}/assets/img/tower.jpg" alt="" width="1200" height="1600" loading="lazy" style="max-height:520px"></div>
+    <div>
+      <h2>{{ t('group_title') }}</h2>
+      <p>{{ t('group_body') }}</p>
+      <div class="kpis" style="margin-top:28px">
+        <div class="kpi"><div class="v num">45+</div><div class="l">{{ t('g_years') }}</div></div>
+        <div class="kpi"><div class="v num">10+</div><div class="l">{{ t('g_factories') }}</div></div>
+        <div class="kpi"><div class="v num">2,400+</div><div class="l">{{ t('g_employees') }}</div></div>
+        <div class="kpi"><div class="v num">300+</div><div class="l">{{ t('g_engineers') }}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap grid-2">
+    <div>
+      <h2>{{ t('line_title') }}</h2>
+      <p class="lead">{{ t('line_body') }}</p>
+      <a class="btn btn-primary" href="{{ u('/contact/') }}?code=Line%20package">{{ t('line_cta') }}</a>
+    </div>
+    <div>
+      <h3>{{ t('order_title') }}</h3>
+      <p>{{ t('order_body') }}</p>
+      <div class="callout small">{{ t('order_example') }}</div>
+    </div>
+  </div>
+</section>
+{% endblock %}

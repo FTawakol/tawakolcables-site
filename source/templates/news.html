@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_news') }}</div>
+  <h1>{{ t('news_title') }}</h1>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap">
+  <article class="post">
+    <div class="date num">{{ t('news_1_date') }}</div>
+    <h2>{{ t('news_1_title') }}</h2>
+    <p>{{ t('news_1_body') }}</p>
+    <p><a class="btn btn-ghost btn-sm" href="{{ u('/quality/') }}#type-test">{{ t('tt_cta') }}</a></p>
+  </article>
+</div></section>
+{% endblock %}

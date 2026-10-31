@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_quality') }}</div>
+  <h1>{{ t('quality_title') }}</h1><p class="lead">{{ t('quality_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap">
+  <div class="grid-2" style="align-items:start">
+    <div><h2>{{ t('applicable_standards') }}</h2>
+      <table class="spec">{% for s,d in standards %}<tr><th class="num" style="width:38%">{{ s }}</th><td style="text-align:start;font-weight:400">{{ d }}</td></tr>{% endfor %}</table></div>
+    <div><h2>{{ t('wire_tests') }}</h2><ul class="list-2" style="grid-template-columns:1fr">{% for x in wire_tests %}<li>{{ x }}</li>{% endfor %}</ul>
+      <h2 style="margin-top:28px">{{ t('conductor_tests') }}</h2><ul class="list-2" style="grid-template-columns:1fr">{% for x in cond_tests %}<li>{{ x }}</li>{% endfor %}</ul></div>
+  </div>
+</div></section>
+<section class="section tint" id="type-test"><div class="wrap">
+  <div class="grid-2" style="align-items:start">
+    <div><h2>{{ t('tt_title') }}</h2><p>{{ t('tt_intro') }}</p>
+      <div class="kpis" style="grid-template-columns:repeat(3,1fr);margin-top:24px">
+        <div class="kpi"><div class="v num">17/17</div><div class="l">{{ t('badge_tests') }}</div></div>
+        <div class="kpi"><div class="v num">0.027869</div><div class="l">{{ t('k_resistivity') }}</div></div>
+        <div class="kpi"><div class="v num">115.23</div><div class="l">{{ t('k_tensile') }}</div></div>
+      </div>
+      <p style="margin-top:24px"><a class="btn btn-primary" href="{{ root }}/assets/docs/Altawakol-ACSR-380-50-Type-Test-Report.pdf">{{ t('tt_download') }}</a> <a class="btn btn-ghost" href="{{ u('/products/atc-acs-012/') }}">ATC-ACS-012</a></p>
+    </div>
+    <div class="xsec" style="background:#fff"><img src="{{ root }}/assets/img/acsr380_section.png" alt="" width="1129" height="1130" style="max-width:260px;margin:0 auto"><div class="cap num">ACSR 380/50 · 54 × 3.00 AL1 / 7 × 3.00 ST1A · Ø 27.0 mm</div>
+      <table class="spec" style="margin-top:16px;text-align:start"><tr><th>{{ t('tt_report') }}</th><td class="num">568/2026</td></tr><tr><th>{{ t('tt_issued') }}</th><td class="num">29 Sep 2026</td></tr><tr><th>{{ t('tt_lab') }}</th><td>EHVRC, EEHC</td></tr><tr><th>{{ t('tt_scope') }}</th><td>{{ t('tt_scope_v') }}</td></tr></table></div>
+  </div>
+  <div class="tablewrap" style="margin-top:36px"><table class="data" style="min-width:900px">
+    <thead><tr><th>#</th><th>{{ t('th_test') }}</th><th>{{ t('th_clause') }}</th><th>{{ t('th_req') }}</th><th>{{ t('th_result') }}</th><th>{{ t('th_verdict') }}</th></tr></thead>
+    <tbody>{% for tt in type_tests %}<tr><td class="num">{{ '%02d' % loop.index }}</td><td style="white-space:normal"><b>{{ tt[0] }}</b></td><td class="num small">{{ tt[1] }}</td><td style="white-space:normal">{{ tt[2] }}</td><td class="num" style="color:var(--blue);font-weight:600;white-space:normal">{{ tt[3] }}</td><td style="color:var(--ok);font-weight:700">✓ {{ t('pass') }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <div class="callout" style="margin-top:20px"><b>{{ t('lab_conclusion') }}</b></div>
+</div></section>
+{% endblock %}

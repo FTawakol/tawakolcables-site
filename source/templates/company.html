@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_company') }}</div>
+  <h1>{{ t('company_title') }}</h1><p class="lead">{{ t('company_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap grid-2">
+  <div><p>{{ t('company_body') }}</p><h3>{{ t('what_we_offer') }}</h3><ul class="list-2">{% for i in range(1,7) %}<li>{{ t('offer_' ~ i) }}</li>{% endfor %}</ul></div>
+  <div class="photo slant"><img src="{{ root }}/assets/img/tower.jpg" alt="" width="1200" height="1600" loading="lazy" style="max-height:480px"></div>
+</div></section>
+<section class="section navy"><div class="wrap">
+  <h2>{{ t('group_title') }}</h2><p style="max-width:70ch;color:#C9D6EC">{{ t('group_body') }} {{ t('partners') }}</p>
+  <div class="kpis" style="margin-top:32px">
+    <div class="kpi"><div class="v num">45+</div><div class="l">{{ t('g_years') }}</div></div><div class="kpi"><div class="v num">10+</div><div class="l">{{ t('g_factories') }}</div></div>
+    <div class="kpi"><div class="v num">2,400+</div><div class="l">{{ t('g_employees') }}</div></div><div class="kpi"><div class="v num">300+</div><div class="l">{{ t('g_engineers') }}</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:40px;align-items:start"><div><h3>{{ t('mission') }}</h3><p style="color:#C9D6EC">{{ t('mission_v') }}</p></div><div><h3>{{ t('vision') }}</h3><p style="color:#C9D6EC">{{ t('vision_v') }}</p></div></div>
+  <p style="color:#C9D6EC">{{ t('values') }}</p>
+</div></section>
+<section class="section"><div class="wrap">
+  <div class="section-head"><h2>{{ t('process_title') }}</h2><p class="lead">{{ t('process_intro') }}</p></div>
+  <div class="steps">{% for i in range(1,7) %}<div class="step"><h4>{{ t('p' ~ i) }}</h4><p>{{ t('p' ~ i ~ 'd') }}</p></div>{% endfor %}</div>
+</div></section>
+{% endblock %}

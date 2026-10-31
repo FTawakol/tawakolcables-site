@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_compare') }}</div>
+  <h1>{{ t('compare_title') }}</h1><p class="lead">{{ t('compare_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap" id="compare">
+  <form id="cmp-add" class="cmp-pick" onsubmit="return false"><input name="code" list="cmp-list" placeholder="ATC-ACS-011, Lynx…" class="num"><datalist id="cmp-list"></datalist><button class="btn btn-ghost btn-sm" type="submit">{{ t('compare_add') }}</button></form>
+  <div id="cmp-table"></div>
+  <p class="note">{{ t('table_note') }}</p>
+</div></section>
+{% endblock %}

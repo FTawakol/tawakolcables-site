@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_products') }}</div>
+  <h1>{{ t('products_title') }}</h1><p class="lead">{{ t('products_intro') }}</p>
+</div></div>
+<section class="section">
+  <div class="wrap">
+    <div class="grid-3">
+      {% for fam in ['ACSR','AAAC','AAC'] %}{% set F=families[fam] %}
+      <article class="family-card {{ fam|lower }}">
+        {{ sections[fam]|safe }}
+        <h3>{{ F.name }}</h3><div class="full">{{ F.full }}</div>
+        <p>{{ F.desc }}</p>
+        <div class="meta"><span>{{ t('range') }} <b class="num">{{ F.range }}</b></span><span><b class="num">{{ counts[fam] }}</b> {{ t('sizes') }}</span></div>
+        <a class="btn btn-primary btn-sm" href="{{ u('/products/' ~ fam|lower ~ '/') }}">{{ t('view_range') }}</a>
+      </article>
+      {% endfor %}
+    </div>
+    <h2 style="margin-top:56px">{{ t('selection_guide') }}</h2>
+    <div class="tablewrap"><table class="data sg" style="min-width:600px">
+      <thead><tr><th></th><th>AAC</th><th>AAAC</th><th>ACSR</th></tr></thead>
+      <tbody>
+      {% for lbl,a,b,c in [('sg_conductivity',4,3,3),('sg_strength',1,3,4),('sg_weight',4,4,2),('sg_corrosion',3,4,2)] %}
+      <tr><td><b>{{ t(lbl) }}</b></td>{% for v in [a,b,c] %}<td class="bars">{% for i in range(4) %}<span class="{{ 'on' if i < v }}"></span>{% endfor %}</td>{% endfor %}</tr>
+      {% endfor %}
+      <tr><td><b>{{ t('sg_use') }}</b></td><td style="white-space:normal">{{ t('sg_aac_use') }}</td><td style="white-space:normal">{{ t('sg_aaac_use') }}</td><td style="white-space:normal">{{ t('sg_acsr_use') }}</td></tr>
+      </tbody></table></div>
+    <p class="note">{{ t('sg_note') }}</p>
+  </div>
+</section>
+{% endblock %}

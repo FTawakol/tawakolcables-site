@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="pagehead"><div class="wrap">
+  <div class="crumbs"><a href="{{ u('/') }}">{{ t('breadcrumb_home') }}</a><span>/</span>{{ t('nav_documents') }}</div>
+  <h1>{{ t('docs_title') }}</h1><p class="lead">{{ t('docs_intro') }}</p>
+</div></div>
+<section class="section" style="padding-top:40px"><div class="wrap doclist" style="max-width:900px">
+  <div class="doc"><div class="icon">PDF</div><div><h3>{{ t('doc_catalogue') }}</h3><p>{{ t('doc_catalogue_d') }}</p><div class="meta num">2026 · 2.9 MB</div></div><a class="btn btn-primary btn-sm" href="{{ root }}/assets/docs/Altawakol-Overhead-Conductors-Catalogue.pdf">{{ t('download') }}</a></div>
+  <div class="doc"><div class="icon">PDF</div><div><h3>{{ t('doc_tt') }}</h3><p>{{ t('doc_tt_d') }}</p><div class="meta num">{{ t('issued') }} 29 Sep 2026 · 8.2 MB</div></div><a class="btn btn-primary btn-sm" href="{{ root }}/assets/docs/Altawakol-ACSR-380-50-Type-Test-Report.pdf">{{ t('download') }}</a></div>
+  <div class="doc"><div class="icon csv">CSV</div><div><h3>{{ t('doc_csv') }}</h3><p>{{ t('doc_csv_d') }}</p><div class="meta num">131 rows · {{ build_date }}</div></div><a class="btn btn-primary btn-sm" href="{{ root }}/data/altawakol-conductors.csv" download>{{ t('download') }}</a></div>
+  <div class="doc"><div class="icon na">ZIP</div><div><h3>{{ t('doc_prequal') }}</h3><p>{{ t('doc_prequal_d') }}</p></div><a class="btn btn-ghost btn-sm" href="{{ u('/contact/') }}?code=Pre-qualification%20pack">{{ t('doc_request') }}</a></div>
+  <p class="note">{{ t('datasheet') }}: {{ t('families_sub') }}</p>
+</div></section>
+{% endblock %}
