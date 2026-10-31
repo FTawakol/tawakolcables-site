@@ -80,7 +80,7 @@ def section_svg(r, size=220):
 def exploded_svg():
     """ACSR 380/50 shown as four concentric rings pulled apart: steel core, then 12, 18, 24 aluminium."""
     d=3.0; rings=[(7,'st'),(12,'al'),(18,'al'),(24,'al')]; out=['<svg viewBox="0 0 560 560" role="img" aria-label="ACSR 380/50 layers: steel core, 12, 18 and 24 aluminium wires">']
-    cx,cy=280,280; sc=7.2
+    cx,cy=280,270; sc=8.6
     out.append(f'<circle cx="{cx}" cy="{cy}" r="{13.5*sc+6}" fill="none" stroke="#B9C7E2" stroke-dasharray="5 5"/>')
     labels=[('Steel core · 7 × 3.00 mm',0),('12 × 3.00 mm Al',2),('18 × 3.00 mm Al',3),('24 × 3.00 mm Al',4)]
     for li,(n,kind) in enumerate(rings):
@@ -94,9 +94,9 @@ def exploded_svg():
     # callouts
     def anchor(R, ang): return (cx+R*sc*math.cos(ang), cy+R*sc*math.sin(ang))
     calls=[(anchor(d, -math.pi/2), 'Steel core · 7 × 3.00 mm ST1A', 'middle', cx, 52),
-           (anchor(2*d, -math.pi/4), '12 × 3.00 mm AL1', 'start', cx+150, cy-150),
-           (anchor(3*d, math.pi*0.8), '18 × 3.00 mm AL1', 'end', cx-150, cy+110),
-           (anchor(4*d, math.pi/4), '24 × 3.00 mm AL1 · outer, right-hand lay', 'start', cx+120, cy+190)]
+           (anchor(2*d, -math.pi/4), '12 × 3.00 mm AL1', 'end', cx+270, cy-190),
+           (anchor(3*d, math.pi*0.8), '18 × 3.00 mm AL1', 'start', 20, cy+205),
+           (anchor(4*d, math.pi/4), '24 × 3.00 mm AL1 · outer layer', 'end', cx+200, cy+215)]
     for (x,y),txt,anc,tx,ty in calls:
         out.append(f'<line x1="{x:.0f}" y1="{y:.0f}" x2="{tx}" y2="{ty-5}" stroke="#1A8FE2" stroke-width="1.2"/><circle cx="{x:.0f}" cy="{y:.0f}" r="3.5" fill="#1A8FE2"/>')
         out.append(f'<text x="{tx}" y="{ty}" text-anchor="{anc}" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="600" fill="#24356E">{txt}</text>')

@@ -49,7 +49,7 @@
       {n:24, R:4*d,    dir: 1, L: 215, z1: -8, mat:alu}      // outer layer right-hand (lay ratio 12.66 × Ø27 ≈ 342 mm; shortened for the view)
     ];
     layers.forEach(function(l){ for(var i=0;i<l.n;i++){ group.add(wire(l.R, l.L, 2*Math.PI*i/l.n, l.dir, zStart, l.z1, l.mat)); } });
-    group.rotation.y = -0.95; group.rotation.x = 0.12; group.position.set(4, 2, 0);
+    group.rotation.y = -0.95; group.rotation.x = 0.12; group.position.set(2, 5, 0);
 
     // interaction: drag to spin, auto-rotate otherwise
     var dragging=false, px=0, py=0, vx=0.0035, vy=0, auto=!reduce;
